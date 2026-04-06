@@ -1,8 +1,13 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useVoting } from '../context/VotingContext'
 import Button from '../components/Button'
 import './Home.css'
+
+const MODULES = [
+  { key: 'copasst',     label: 'COPASST',            desc: 'Comité Paritario de Seguridad y Salud en el Trabajo' },
+  { key: 'convivencia', label: 'Convivencia Laboral', desc: 'Comité de Convivencia Laboral' },
+]
 
 export default function Home() {
   const navigate = useNavigate()
@@ -34,79 +39,58 @@ export default function Home() {
       <div className="home-container">
 
         <div className="home-header">
-          <div className="home-logo">
-            <img src="/Logo syp.png" alt="Logo S&P" className="logo-image" />
-          </div>
+          <img src="/Logo syp.png" alt="Logo S&P" className="home-logo" />
           <h1 className="home-title">Sistema de Votación</h1>
-          <p className="home-subtitle">S&P Colombia — Elecciones SST 2026</p>
+          <p className="home-subtitle">S&P Colombia &mdash; Elecciones 2026</p>
         </div>
 
         <p className="home-instruction">Seleccione el comité al que desea votar</p>
 
         <div className="modules-grid">
-          <button
-            className="module-card module-copasst"
-            onClick={() => handleSelectModule('copasst')}
-          >
-            <div className="module-icon">🛡️</div>
-            <h2 className="module-title">COPASST</h2>
-            <p className="module-desc">Comité Paritario de Seguridad y Salud en el Trabajo</p>
-            <span className="module-cta">Ir a votar →</span>
-          </button>
-
-          <button
-            className="module-card module-convivencia"
-            onClick={() => handleSelectModule('convivencia')}
-          >
-            <div className="module-icon">🤝</div>
-            <h2 className="module-title">Convivencia Laboral</h2>
-            <p className="module-desc">Comité de Convivencia Laboral</p>
-            <span className="module-cta">Ir a votar →</span>
-          </button>
+          {MODULES.map(mod => (
+            <button
+              key={mod.key}
+              className="module-card"
+              onClick={() => handleSelectModule(mod.key)}
+            >
+              <div className="module-card-text">
+                <span className="module-label">{mod.label}</span>
+                <span className="module-desc">{mod.desc}</span>
+              </div>
+              <span className="module-arrow" aria-hidden="true">&#8594;</span>
+            </button>
+          ))}
         </div>
 
-        <div className="results-access">
-          <button
-            className="results-link"
-            onClick={() => { setShowResultsModal(true); setPasswordError(''); setResultsPassword('') }}
-          >
-            📊 Ver Resultados
-          </button>
-        </div>
+        <button
+          className="results-link"
+          onClick={() => { setShowResultsModal(true); setPasswordError(''); setResultsPassword('') }}
+        >
+          Ver resultados
+        </button>
       </div>
 
       {showResultsModal && (
         <div className="modal-overlay" onClick={() => setShowResultsModal(false)}>
-          <div className="modal-content results-modal" onClick={e => e.stopPropagation()}>
-            <h2 className="modal-title">🔒 Acceso a Resultados</h2>
-            <p className="modal-subtitle">Ingrese la contraseña de administrador</p>
-            <form onSubmit={handleResultsAccess} className="password-form">
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <h2 className="modal-title">Acceso a Resultados</h2>
+            <p className="modal-sub">Ingrese la contraseña de administrador</p>
+            <form onSubmit={handleResultsAccess} className="modal-form">
               <input
                 type="password"
                 value={resultsPassword}
                 onChange={e => { setResultsPassword(e.target.value); setPasswordError('') }}
                 placeholder="Contraseña"
-                className="form-input password-input"
+                className="modal-input"
                 autoFocus
               />
               {passwordError && (
-                <div className="error-message">
-                  <span className="error-icon">⚠</span>
-                  {passwordError}
-                </div>
+                <p className="modal-error">⚠ {passwordError}</p>
               )}
-              <div className="modal-actions">
-                <Button type="submit" variant="primary" fullWidth>
-                  Acceder
-                </Button>
-                <button
-                  type="button"
-                  className="cancel-link"
-                  onClick={() => setShowResultsModal(false)}
-                >
-                  Cancelar
-                </button>
-              </div>
+              <Button type="submit" variant="primary" fullWidth>Acceder</Button>
+              <button type="button" className="modal-cancel" onClick={() => setShowResultsModal(false)}>
+                Cancelar
+              </button>
             </form>
           </div>
         </div>

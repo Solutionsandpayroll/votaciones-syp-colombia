@@ -296,7 +296,7 @@
 
   /* Título del PDF */
   .results-container::before {
-    content: 'S&P Perú — Elecciones Supervisor SST 2026 - 2028';
+    content: 'S&P Colombia — Elecciones SST 2026';
     display: block;
     font-size: 20px;
     font-weight: 800;
