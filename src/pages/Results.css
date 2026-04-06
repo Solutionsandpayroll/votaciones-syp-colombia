@@ -1,0 +1,451 @@
+.results-page {
+  min-height: 100vh;
+  background: var(--gray-50);
+}
+
+.results-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+/* Tabs de módulos */
+.results-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.results-tab {
+  padding: 10px 24px;
+  border: 2px solid #D1D5DB;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.results-tab:hover {
+  border-color: #1e3a8a;
+  color: #1e3a8a;
+}
+
+.results-tab--active {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+  color: #ffffff;
+}
+
+.results-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.results-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+  font-size: 48px;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--gray-600);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.results-list {
+  margin-bottom: var(--spacing-xl);
+}
+
+.results-list-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: var(--spacing-lg);
+}
+
+.no-votes-card {
+  padding: var(--spacing-2xl);
+}
+
+.no-votes-content {
+  text-align: center;
+}
+
+.no-votes-icon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
+}
+
+.no-votes-content h3 {
+  font-size: 24px;
+  color: var(--gray-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.no-votes-content p {
+  color: var(--gray-500);
+}
+
+.result-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-rank {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-400);
+  min-width: 50px;
+  text-align: center;
+}
+
+.rank-badge {
+  font-size: 36px;
+  display: block;
+}
+
+.rank-number {
+  font-size: 24px;
+}
+
+.result-candidate {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.result-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gray-200);
+  flex-shrink: 0;
+}
+
+.result-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.result-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-party {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.result-votes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.votes-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1;
+}
+
+.votes-label {
+  font-size: 12px;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-percentage {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--primary);
+  min-width: 100px;
+  text-align: right;
+}
+
+.result-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--gray-200);
+}
+
+.result-bar {
+  height: 100%;
+  transition: width 1s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-bar-glow {
+  display: none;
+}
+
+.results-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.btn-download-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-download-pdf:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+/* ===== ESTILOS DE IMPRESIÓN / PDF ===== */
+@media print {
+  /* Ocultar elementos de navegación */
+  header,
+  .results-actions,
+  .results-footer,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  body, .results-page {
+    background: white !important;
+  }
+
+  .results-container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* Título del PDF */
+  .results-container::before {
+    content: 'S&P Perú — Elecciones Supervisor SST 2026 - 2028';
+    display: block;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e3a8a;
+    text-align: center;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1e3a8a;
+  }
+
+  .results-container::after {
+    content: 'Documento generado el ' attr(data-fecha);
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  .stat-card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+  }
+
+  .stat-card:hover {
+    transform: none !important;
+  }
+
+  .result-card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb;
+    break-inside: avoid;
+  }
+
+  .result-bar-container {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .result-bar {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .historial-table th {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .historial-table tr:nth-child(even) td {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: #f9fafb !important;
+  }
+}
+
+.results-footer {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.footer-text {
+  font-size: 14px;
+  color: var(--gray-600);
+  margin-bottom: var(--spacing-sm);
+}
+
+.footer-timestamp {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-family: monospace;
+}
+
+@media (max-width: 768px) {
+  .result-card {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  
+  .result-stats {
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .results-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-value {
+    font-size: 28px;
+  }
+  
+  .result-name {
+    font-size: 18px;
+  }
+  
+  .result-percentage {
+    font-size: 28px;
+  }
+}
+
+/* Historial de votantes */
+.historial-table-wrapper {
+  overflow-x: auto;
+}
+
+.historial-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.historial-table th {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.historial-table th:first-child {
+  border-radius: 8px 0 0 0;
+  width: 50px;
+}
+
+.historial-table th:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.historial-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+}
+
+.historial-table tr:last-child td {
+  border-bottom: none;
+}
+
+.historial-table tr:nth-child(even) td {
+  background: #f9fafb;
+}
+
+.historial-table tr:hover td {
+  background: #eff6ff;
+}

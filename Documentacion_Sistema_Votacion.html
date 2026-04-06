@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentación — Sistema de Votación S&P Perú</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #1f2937;
+      background: #f9fafb;
+      padding: 40px 20px;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    /* ENCABEZADO */
+    .header {
+      background: #1e3a8a;
+      color: white;
+      padding: 36px 48px 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header img {
+      height: 70px;
+      filter: brightness(0) invert(1);
+    }
+
+    .header-text h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header-text p {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* CONTENIDO */
+    .content {
+      padding: 40px 48px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 32px;
+      background: #eff6ff;
+      border-left: 4px solid #1e3a8a;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 13px;
+      color: #374151;
+    }
+
+    .meta-item strong {
+      color: #1e3a8a;
+    }
+
+    /* SECCIONES */
+    .section {
+      margin-bottom: 36px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e3a8a;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-number {
+      background: #1e3a8a;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+
+    /* TABLA */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 8px;
+    }
+
+    thead th {
+      background: #1e3a8a;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    thead th:first-child { border-radius: 6px 0 0 0; }
+    thead th:last-child  { border-radius: 0 6px 0 0; }
+
+    tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #e5e7eb;
+      color: #374151;
+    }
+
+    tbody tr:nth-child(even) td { background: #f9fafb; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* LISTA DE PASOS */
+    ol {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+
+    ol li {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 4px;
+    }
+
+    /* BLOQUE DESTACADO — ANONIMIDAD */
+    .highlight-box {
+      background: #f0fdf4;
+      border: 1.5px solid #16a34a;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+
+    .highlight-box .box-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #15803d;
+      margin-bottom: 10px;
+    }
+
+    .highlight-box p { margin-bottom: 6px; }
+
+    /* BLOQUE BASE DE DATOS */
+    .db-schema {
+      display: flex;
+      gap: 24px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .db-table {
+      flex: 1;
+      min-width: 200px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    .db-table-header {
+      background: #1e3a8a;
+      color: white;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .db-table-body {
+      padding: 10px 14px;
+    }
+
+    .db-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      border-bottom: 1px solid #f3f4f6;
+      color: #374151;
+    }
+
+    .db-field:last-child { border-bottom: none; }
+
+    .field-type {
+      font-size: 11px;
+      color: #9ca3af;
+      font-family: monospace;
+    }
+
+    .no-link {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: #7f1d1d;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* BLOQUE SEGURIDAD */
+    .security-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 8px;
+    }
+
+    .security-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #374151;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f6;
+      line-height: 1.5;
+    }
+
+    .security-list li:last-child { border-bottom: none; }
+
+    .check { color: #16a34a; font-weight: 700; flex-shrink: 0; }
+
+    /* PIE DE PÁGINA */
+    .footer {
+      background: #f3f4f6;
+      border-top: 1px solid #e5e7eb;
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+      .section { break-inside: avoid; }
+      .db-schema { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ENCABEZADO -->
+  <div class="header">
+    <img src="public/Logo syp.png" alt="Logo S&P Perú" onerror="this.style.display='none'" />
+    <div class="header-text">
+      <h1>Documentación Técnica — Sistema de Votación</h1>
+      <p>S&P Perú &nbsp;|&nbsp; Elecciones Supervisor SST 2026 - 2028</p>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="content">
+
+    <!-- META -->
+    <div class="meta">
+      <div class="meta-item"><strong>Fecha de desarrollo:</strong> Febrero – Marzo 2026</div>
+      <div class="meta-item"><strong>Versión:</strong> 1.0</div>
+      <div class="meta-item"><strong>Elaborado por:</strong> Solutions &amp; Payroll Perú</div>
+    </div>
+
+    <!-- 1. DESCRIPCIÓN GENERAL -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">1</span>
+        Descripción General del Sistema
+      </div>
+      <p>
+        Plataforma web desarrollada para la elección del Supervisor de SST, que garantiza el voto
+        individual, secreto e irrepetible de cada trabajador autorizado. El sistema está disponible
+        desde cualquier dispositivo con acceso a internet y no requiere instalación.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Atributo</th><th>Detalle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nombre del sistema</td><td>Sistema de Votación S&amp;P Perú</td></tr>
+          <tr><td>Propósito</td><td>Elección de Supervisor SST 2026–2028</td></tr>
+          <tr><td>Acceso</td><td>Web — disponible desde cualquier dispositivo</td></tr>
+          <tr><td>Votantes habilitados</td><td>9 trabajadores (lista predefinida en el sistema)</td></tr>
+          <tr><td>Período de disponibilidad</td><td>Mínimo 5 años desde la votación</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2. TECNOLOGÍAS -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">2</span>
+        Tecnologías Utilizadas
+      </div>
+      <table>
+        <thead>
+          <tr><th>Componente</th><th>Tecnología</th><th>Justificación</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Frontend (interfaz)</td>
+            <td>React 18 + Vite</td>
+            <td>Interfaz moderna, rápida y compatible con todos los navegadores</td>
+          </tr>
+          <tr>
+            <td>Hosting</td>
+            <td>Vercel</td>
+            <td>HTTPS automático, disponibilidad 99.9%, despliegue desde GitHub</td>
+          </tr>
+          <tr>
+            <td>Base de datos</td>
+            <td>Neon PostgreSQL</td>
+            <td>Almacenamiento relacional permanente, tier gratuito sin vencimiento</td>
+          </tr>
+          <tr>
+            <td>Código fuente</td>
+            <td>GitHub</td>
+            <td>Respaldo del código, historial de cambios, recuperación ante fallos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3. FUNCIONAMIENTO -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">3</span>
+        Funcionamiento del Sistema
+      </div>
+      <p>El proceso de votación sigue estos pasos:</p>
+      <ol>
+        <li>El trabajador ingresa al sistema y selecciona su nombre de la lista autorizada.</li>
+        <li>El sistema verifica en tiempo real si esa persona ya votó. Si es así, bloquea el acceso de forma permanente.</li>
+        <li>El trabajador selecciona su candidato y confirma el voto.</li>
+        <li>El sistema registra la participación y el conteo, mostrando la pantalla de confirmación.</li>
+        <li>El acceso queda bloqueado para ese nombre — no es posible votar dos veces.</li>
+      </ol>
+    </div>
+
+    <!-- 4. ANONIMIDAD -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">4</span>
+        Garantía de Anonimidad del Voto
+      </div>
+
+      <p>
+        Esta es la garantía central del sistema. El diseño de la base de datos hace
+        <strong>imposible</strong> —incluso técnicamente— conocer quién votó por quién.
+      </p>
+
+      <p style="margin-top:14px; font-weight:600; color:#1e3a8a;">Estructura de las tablas:</p>
+      <div class="db-schema">
+        <div class="db-table">
+          <div class="db-table-header">Tabla: votantes</div>
+          <div class="db-table-body">
+            <div class="db-field">id <span class="field-type">número</span></div>
+            <div class="db-field">nombre <span class="field-type">texto</span></div>
+            <div class="db-field">fecha_hora <span class="field-type">timestamp</span></div>
+          </div>
+        </div>
+        <div class="db-table">
+          <div class="db-table-header">Tabla: resultados</div>
+          <div class="db-table-body">
+            <div class="db-field">candidato_id <span class="field-type">número</span></div>
+            <div class="db-field">candidato_nombre <span class="field-type">texto</span></div>
+            <div class="db-field">total_votos <span class="field-type">contador</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-link">
+        ⚠ No existe ningún campo ni relación que vincule un nombre con un candidato.
+        Ese dato nunca se escribe en ningún lugar del sistema.
+      </div>
+
+      <div class="highlight-box" style="margin-top:16px;">
+        <div class="box-title">✔ Por qué es imposible la correlación</div>
+        <p>• La tabla <strong>votantes</strong> registra únicamente quién participó y cuándo. No contiene ningún campo de candidato.</p>
+        <p>• La tabla <strong>resultados</strong> almacena solo un contador que se incrementa en 1. No guarda el nombre del votante ni ningún registro individual del voto.</p>
+        <p>• Aunque alguien tuviera acceso directo a la base de datos, solo vería: <em>"estas personas votaron"</em> y <em>"este candidato tiene X votos"</em> — sin ninguna conexión entre ambas tablas.</p>
+        <p>• El sistema funciona como una <strong>urna física</strong>: el control de asistencia es completamente independiente del conteo de votos.</p>
+      </div>
+    </div>
+
+    <!-- 5. RESULTADOS -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">5</span>
+        Acceso a Resultados
+      </div>
+      <ul class="security-list">
+        <li><span class="check">✔</span> La página de resultados está protegida con contraseña de administrador.</li>
+        <li><span class="check">✔</span> Los resultados muestran únicamente: votos por candidato, porcentaje, y el historial de quiénes participaron (sin indicar por quién votaron).</li>
+        <li><span class="check">✔</span> Los datos se actualizan en tiempo real (cada 10 segundos).</li>
+        <li><span class="check">✔</span> El administrador puede exportar los resultados a PDF directamente desde la plataforma.</li>
+      </ul>
+    </div>
+
+    <!-- 6. DURABILIDAD -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">6</span>
+        Durabilidad de los Datos (5 años)
+      </div>
+      <ul class="security-list">
+        <li><span class="check">✔</span> Los datos están en <strong>Neon PostgreSQL</strong>, con almacenamiento gratuito permanente vinculado al correo corporativo — no a una suscripción de pago.</li>
+        <li><span class="check">✔</span> No depende de que ninguna persona custodie un archivo ni de herramientas de terceros como Microsoft 365.</li>
+        <li><span class="check">✔</span> Los datos pueden exportarse en cualquier momento desde el panel de Neon como respaldo en formato SQL.</li>
+        <li><span class="check">✔</span> El código fuente está respaldado permanentemente en GitHub.</li>
+        <li><span class="check">✔</span> Si el hosting cambiara en el futuro, el sistema puede redeployarse en minutos desde el mismo repositorio.</li>
+      </ul>
+    </div>
+
+    <!-- 7. SEGURIDAD -->
+    <div class="section">
+      <div class="section-title">
+        <span class="section-number">7</span>
+        Seguridad del Sistema
+      </div>
+      <ul class="security-list">
+        <li><span class="check">✔</span> Las credenciales de base de datos nunca están en el código fuente — se gestionan como variables de entorno en el servidor.</li>
+        <li><span class="check">✔</span> La conexión a la base de datos ocurre únicamente en el servidor, nunca en el navegador del usuario.</li>
+        <li><span class="check">✔</span> Toda la comunicación está cifrada con HTTPS.</li>
+        <li><span class="check">✔</span> El sistema valida en el servidor que un votante no haya votado antes de registrar el voto, previniendo duplicados incluso si se manipula el navegador.</li>
+        <li><span class="check">✔</span> La contraseña de administrador está configurada como variable de entorno, no escrita en el código.</li>
+      </ul>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- PIE DE PÁGINA -->
+  <div class="footer">
+    <span>S&amp;P Perú — Documento interno confidencial</span>
+    <span>Generado en Marzo 2026</span>
+  </div>
+
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+  <button
+    onclick="window.print()"
+    style="padding:12px 28px; background:#1e3a8a; color:white; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;"
+  >
+    🖨 Imprimir / Guardar como PDF
+  </button>
+</div>
+
+</body>
+</html>
