@@ -12,7 +12,7 @@ const MODULES = [
 
 export default function Home() {
   const navigate = useNavigate()
-  const { seleccionarModulo } = useVoting()
+  const { seleccionarModulo, sucursal } = useVoting()
   const [showResultsModal, setShowResultsModal] = useState(false)
   const [resultsPassword, setResultsPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -71,12 +71,14 @@ export default function Home() {
           ))}
         </div>
 
-        <button
-          className="results-link"
-          onClick={() => { setShowResultsModal(true); setPasswordError(''); setResultsPassword('') }}
-        >
-          Ver resultados
-        </button>
+        {sucursal === "S&P" && (
+          <button
+            className="results-link"
+            onClick={() => { setShowResultsModal(true); setPasswordError(''); setResultsPassword('') }}
+          >
+            Ver resultados
+          </button>
+        )}
       </div>
 
       {showResultsModal && (

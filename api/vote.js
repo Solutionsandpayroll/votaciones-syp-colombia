@@ -5,10 +5,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido' })
   }
 
-  const { nombre, candidatoId, tipoVotacion } = req.body
+  const { nombre, candidatoId, tipoVotacion, sucursal } = req.body
 
-  if (!nombre || !candidatoId || !tipoVotacion) {
-    return res.status(400).json({ error: 'Nombre, candidatoId y tipoVotacion son requeridos' })
+  if (!nombre || !candidatoId || !tipoVotacion || !sucursal) {
+    return res.status(400).json({ error: 'Nombre, candidatoId, tipoVotacion y sucursal son requeridos' })
   }
 
   if (!['copasst', 'convivencia'].includes(tipoVotacion)) {
@@ -27,11 +27,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Candidato no válido' })
     }
 
-    // Verificar que el votante no haya votado en este módulo
+    // Verificar que el votante no haya votado en este módulo y sucursal
     const yaVoto = await sql`
       SELECT id FROM votantes
       WHERE LOWER(TRIM(nombre)) = LOWER(TRIM(${nombre}))
         AND tipo_votacion = ${tipoVotacion}
+        AND sucursal = ${sucursal}
       LIMIT 1
     `
     if (yaVoto.length > 0) {
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
 
     // Registrar el votante
     await sql`
-      INSERT INTO votantes (nombre, tipo_votacion) VALUES (${nombre}, ${tipoVotacion})
+      INSERT INTO votantes (nombre, tipo_votacion, sucursal) VALUES (${nombre}, ${tipoVotacion}, ${sucursal})
     `
 
     // Incrementar el contador del candidato

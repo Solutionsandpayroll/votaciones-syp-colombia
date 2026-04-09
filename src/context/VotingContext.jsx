@@ -9,6 +9,8 @@ const CANDIDATES_MAP = {
   convivencia: candidatesConvivencia,
 }
 
+const SUCURSAL = import.meta.env.VITE_SUCURSAL || 'S&P'
+
 export function VotingProvider({ children }) {
   const [tipoVotacion, setTipoVotacion] = useState(null) // 'copasst' | 'convivencia'
   const [user, setUser] = useState(null)
@@ -73,7 +75,7 @@ export function VotingProvider({ children }) {
 
   const confirmVote = async () => {
     if (selectedCandidate && user && !hasVoted && tipoVotacion) {
-      const result = await registrarVoto(user.identifier, selectedCandidate.id, tipoVotacion)
+      const result = await registrarVoto(user.identifier, selectedCandidate.id, tipoVotacion, SUCURSAL)
 
       if (!result.success) {
         console.error('❌ Error registrando voto en Neon:', result.error)
@@ -99,6 +101,7 @@ export function VotingProvider({ children }) {
 
   const value = {
     tipoVotacion,
+    sucursal: SUCURSAL,
     seleccionarModulo,
     user,
     selectedCandidate,

@@ -5,10 +5,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Método no permitido' })
   }
 
-  const { nombre, tipoVotacion } = req.body
+  const { nombre, tipoVotacion, sucursal } = req.body
 
-  if (!nombre || !tipoVotacion) {
-    return res.status(400).json({ error: 'Nombre y tipoVotacion son requeridos' })
+  if (!nombre || !tipoVotacion || !sucursal) {
+    return res.status(400).json({ error: 'Nombre, tipoVotacion y sucursal son requeridos' })
   }
 
   if (!['copasst', 'convivencia'].includes(tipoVotacion)) {
@@ -22,6 +22,7 @@ export default async function handler(req, res) {
       SELECT id FROM votantes
       WHERE LOWER(TRIM(nombre)) = LOWER(TRIM(${nombre}))
         AND tipo_votacion = ${tipoVotacion}
+        AND sucursal = ${sucursal}
       LIMIT 1
     `
 

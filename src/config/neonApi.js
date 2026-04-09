@@ -9,12 +9,12 @@
  * @param {string} tipoVotacion - 'copasst' | 'convivencia'
  * @returns {Promise<{ hasVoted: boolean }>}
  */
-export async function checkIfUserVoted(nombre, tipoVotacion) {
+export async function checkIfUserVoted(nombre, tipoVotacion, sucursal) {
   try {
     const res = await fetch('/api/check-voter', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, tipoVotacion })
+      body: JSON.stringify({ nombre, tipoVotacion, sucursal })
     })
     if (!res.ok) throw new Error(`Error ${res.status}`)
     return await res.json()
@@ -31,12 +31,12 @@ export async function checkIfUserVoted(nombre, tipoVotacion) {
  * @param {string} tipoVotacion - 'copasst' | 'convivencia'
  * @returns {Promise<{ success: boolean }>}
  */
-export async function registrarVoto(nombre, candidatoId, tipoVotacion) {
+export async function registrarVoto(nombre, candidatoId, tipoVotacion, sucursal) {
   try {
     const res = await fetch('/api/vote', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre, candidatoId, tipoVotacion })
+      body: JSON.stringify({ nombre, candidatoId, tipoVotacion, sucursal })
     })
     const data = await res.json()
     if (!res.ok) throw new Error(data.error || `Error ${res.status}`)

@@ -19,7 +19,7 @@ export default function Login() {
   const [isVerifying, setIsVerifying] = useState(false)
   const [showConfirmModal, setShowConfirmModal] = useState(false)
   const navigate = useNavigate()
-  const { login, tipoVotacion } = useVoting()
+  const { login, tipoVotacion, sucursal } = useVoting()
 
   useEffect(() => {
     if (!tipoVotacion) navigate('/')
@@ -42,7 +42,7 @@ export default function Login() {
     setIsVerifying(true)
 
     try {
-      const verification = await checkIfUserVoted(fullName, tipoVotacion)
+      const verification = await checkIfUserVoted(fullName, tipoVotacion, sucursal)
 
       if (verification.hasVoted) {
         setError('Este usuario ya ha votado anteriormente')
