@@ -60,6 +60,29 @@
   margin-bottom: 16px;
 }
 
+/* ── Aviso "vota en ambos comités" ─────────────────── */
+.home-notice {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1e40af;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.home-notice-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #1e40af;
+}
+
 /* ── Módulos ───────────────────────────────────────── */
 .modules-grid {
   width: 100%;
@@ -106,6 +129,20 @@
   font-size: 17px;
   font-weight: 700;
   color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-abbr {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  padding: 1px 6px;
+  letter-spacing: 0.04em;
 }
 
 .module-desc {
@@ -221,11 +258,13 @@
   color: #9CA3AF;
   cursor: pointer;
   text-align: center;
-  padding: 4px;
-  transition: color 0.15s ease;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .modal-cancel:hover {
-  color: #374151;
+  color: #DC2626;
+  background: #FEF2F2;
 }
 

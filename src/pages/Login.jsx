@@ -17,6 +17,7 @@ export default function Login() {
   const [fullName, setFullName] = useState('')
   const [error, setError] = useState('')
   const [isVerifying, setIsVerifying] = useState(false)
+  const [showConfirmModal, setShowConfirmModal] = useState(false)
   const navigate = useNavigate()
   const { login, tipoVotacion } = useVoting()
 
@@ -24,7 +25,7 @@ export default function Login() {
     if (!tipoVotacion) navigate('/')
   }, [tipoVotacion, navigate])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setError('')
 
@@ -33,6 +34,11 @@ export default function Login() {
       return
     }
 
+    setShowConfirmModal(true)
+  }
+
+  const handleConfirmedSubmit = async () => {
+    setShowConfirmModal(false)
     setIsVerifying(true)
 
     try {
@@ -135,6 +141,32 @@ export default function Login() {
         isOpen={isVerifying} 
         message="Verificando usuario"
       />
+
+      {/* Modal de confirmación de nombre */}
+      {showConfirmModal && (
+        <div className="confirm-modal-overlay" onClick={() => setShowConfirmModal(false)}>
+          <div className="confirm-modal-box" onClick={e => e.stopPropagation()}>
+            <p className="confirm-modal-question">
+              ¿Tu nombre es <strong>{fullName}</strong>?
+            </p>
+            <p className="confirm-modal-hint">
+              Si es correcto, pulsa &lsquo;Ingresar&rsquo;. Si no es tu nombre, cierra esta ventana para seleccionarlo de la lista.
+            </p>
+            <div className="confirm-modal-actions">
+              <Button variant="primary" fullWidth onClick={handleConfirmedSubmit}>
+                Ingresar
+              </Button>
+              <button
+                type="button"
+                className="confirm-modal-cancel"
+                onClick={() => setShowConfirmModal(false)}
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -16,6 +16,7 @@ export default function CandidateCard({ candidate, onSelect, isSelected, showVot
           src={candidate.photo} 
           alt={candidate.name}
           className="candidate-photo"
+          style={{ objectFit: candidate.photoFit || 'cover' }}
         />
       </div>
       

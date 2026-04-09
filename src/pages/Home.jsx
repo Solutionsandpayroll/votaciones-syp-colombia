@@ -1,12 +1,13 @@
 ﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useVoting } from '../context/VotingContext'
+import { Info } from 'lucide-react'
 import Button from '../components/Button'
 import './Home.css'
 
 const MODULES = [
-  { key: 'copasst',     label: 'COPASST',            desc: 'Comité Paritario de Seguridad y Salud en el Trabajo' },
-  { key: 'convivencia', label: 'Convivencia Laboral', desc: 'Comité de Convivencia Laboral' },
+  { key: 'copasst',     label: 'COPASST', abbr: null,  desc: 'Comité Paritario de Seguridad y Salud en el Trabajo' },
+  { key: 'convivencia', label: 'CCL',     abbr: null,  desc: 'Comité de Convivencia Laboral' },
 ]
 
 export default function Home() {
@@ -46,6 +47,11 @@ export default function Home() {
 
         <p className="home-instruction">Seleccione el comité al que desea votar</p>
 
+        <div className="home-notice">
+          <Info size={15} strokeWidth={2.2} className="home-notice-icon" />
+          <span>Recuerda que debes votar en <strong>ambos comités</strong> por separado.</span>
+        </div>
+
         <div className="modules-grid">
           {MODULES.map(mod => (
             <button
@@ -54,7 +60,10 @@ export default function Home() {
               onClick={() => handleSelectModule(mod.key)}
             >
               <div className="module-card-text">
-                <span className="module-label">{mod.label}</span>
+                <span className="module-label">
+                  {mod.label}
+                  {mod.abbr && <span className="module-abbr">{mod.abbr}</span>}
+                </span>
                 <span className="module-desc">{mod.desc}</span>
               </div>
               <span className="module-arrow" aria-hidden="true">&#8594;</span>
