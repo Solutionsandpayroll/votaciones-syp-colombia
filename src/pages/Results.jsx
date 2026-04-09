@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ShieldCheck, Handshake, Vote, Users, Building2, Factory, Loader2, Inbox, Trophy, Award, ClipboardList } from 'lucide-react'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import Card from '../components/Card'
@@ -8,8 +9,8 @@ import { candidatesCopasst, candidatesConvivencia } from '../data/candidates'
 import './Results.css'
 
 const MODULES = [
-  { key: 'copasst',     label: 'COPASST',            icon: '🛡️' },
-  { key: 'convivencia', label: 'Convivencia Laboral', icon: '🤝' },
+  { key: 'copasst',     label: 'COPASST',            Icon: ShieldCheck },
+  { key: 'convivencia', label: 'Convivencia Laboral', Icon: Handshake },
 ]
 
 const CANDIDATES_MAP = {
@@ -23,6 +24,7 @@ export default function Results() {
   const [resultados, setResultados] = useState([])
   const [historial, setHistorial] = useState([])
   const [totalVotos, setTotalVotos] = useState(0)
+  const [porSucursal, setPorSucursal] = useState({})
   const [ultimaActualizacion, setUltimaActualizacion] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -38,6 +40,7 @@ export default function Results() {
     ])
     setResultados(resResultados.resultados || [])
     setTotalVotos(resResultados.totalVotos || 0)
+    setPorSucursal(resResultados.porSucursal || {})
     setHistorial(resHistorial.historial || [])
     setUltimaActualizacion(new Date())
     setLoading(false)
@@ -65,7 +68,7 @@ export default function Results() {
               className={`results-tab ${tabActivo === mod.key ? 'results-tab--active' : ''}`}
               onClick={() => setTabActivo(mod.key)}
             >
-              {mod.icon} {mod.label}
+              <mod.Icon size={18} /> {mod.label}
             </button>
           ))}
         </div>
@@ -74,26 +77,34 @@ export default function Results() {
         <div className="results-header">
           <div className="results-stats">
             <Card className="stat-card">
-              <div className="stat-icon">🗳️</div>
+              <div className="stat-icon"><Vote size={40} /></div>
               <div className="stat-content">
                 <div className="stat-value">{totalVotos}</div>
                 <div className="stat-label">Votos Totales</div>
               </div>
             </Card>
             <Card className="stat-card">
-              <div className="stat-icon">👥</div>
+              <div className="stat-icon"><Users size={40} /></div>
               <div className="stat-content">
-                <div className="stat-value">{historial.length}</div>
-                <div className="stat-label">Personas que Votaron</div>
+                <div className="stat-value">222</div>
+                <div className="stat-label">Votantes Habilitados</div>
               </div>
             </Card>
-            <Card className="stat-card">
-              <div className="stat-icon">📊</div>
+          </div>
+
+          <div className="results-sucursal-row">
+            <Card className="stat-card stat-card--sucursal">
+              <div className="stat-icon"><Building2 size={40} /></div>
               <div className="stat-content">
-                <div className="stat-value">
-                  {resultadosOrdenados[0]?.votos > 0 ? `${resultadosOrdenados[0].porcentaje}%` : '0%'}
-                </div>
-                <div className="stat-label">Líder</div>
+                <div className="stat-value">{porSucursal['S&P'] ?? 0}</div>
+                <div className="stat-label">Votos S&amp;P</div>
+              </div>
+            </Card>
+            <Card className="stat-card stat-card--sucursal">
+              <div className="stat-icon"><Factory size={40} /></div>
+              <div className="stat-content">
+                <div className="stat-value">{porSucursal['EOR'] ?? 0}</div>
+                <div className="stat-label">Votos EOR</div>
               </div>
             </Card>
           </div>
@@ -106,14 +117,14 @@ export default function Results() {
           {loading ? (
             <Card className="no-votes-card">
               <div className="no-votes-content">
-                <span className="no-votes-icon">⏳</span>
+                <Loader2 size={56} className="no-votes-icon spin-icon" />
                 <h3>Cargando resultados...</h3>
               </div>
             </Card>
           ) : totalVotos === 0 ? (
             <Card className="no-votes-card">
               <div className="no-votes-content">
-                <span className="no-votes-icon">📭</span>
+                <Inbox size={56} className="no-votes-icon" />
                 <h3>Aún no hay votos registrados</h3>
                 <p>Los resultados aparecerán aquí cuando se registren votos</p>
               </div>
@@ -122,8 +133,8 @@ export default function Results() {
             resultadosOrdenados.map((candidato, index) => (
               <Card key={candidato.candidatoId} className="result-card">
                 <div className="result-rank">
-                  {index === 0 && <span className="rank-badge gold">🥇</span>}
-                  {index === 1 && <span className="rank-badge silver">🥈</span>}
+                  {index === 0 && <span className="rank-badge gold"><Trophy size={22} /></span>}
+                  {index === 1 && <span className="rank-badge silver"><Award size={22} /></span>}
                 </div>
 
                 <div className="result-candidate">
@@ -163,12 +174,12 @@ export default function Results() {
 
         {/* Historial de votantes */}
         <div className="results-list" style={{ marginTop: '32px' }}>
-          <h2 className="results-list-title">👤 Historial de Votantes</h2>
+          <h2 className="results-list-title"><Users size={20} style={{ verticalAlign: 'middle', marginRight: '8px' }} />Historial de Votantes</h2>
 
           {historial.length === 0 ? (
             <Card className="no-votes-card">
               <div className="no-votes-content">
-                <span className="no-votes-icon">📋</span>
+                <ClipboardList size={56} className="no-votes-icon" />
                 <h3>Sin registros aún</h3>
               </div>
             </Card>

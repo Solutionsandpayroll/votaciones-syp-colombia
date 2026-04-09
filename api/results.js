@@ -14,12 +14,20 @@ export default async function handler(req, res) {
   try {
     const sql = neon(process.env.DATABASE_URL)
 
-    const resultados = await sql`
-      SELECT candidato_id, candidato_nombre, total_votos
-      FROM resultados
-      WHERE tipo_votacion = ${tipoVotacion}
-      ORDER BY candidato_id ASC
-    `
+    const [resultados, conteoSucursal] = await Promise.all([
+      sql`
+        SELECT candidato_id, candidato_nombre, total_votos
+        FROM resultados
+        WHERE tipo_votacion = ${tipoVotacion}
+        ORDER BY candidato_id ASC
+      `,
+      sql`
+        SELECT sucursal, COUNT(*) AS total
+        FROM votantes
+        WHERE tipo_votacion = ${tipoVotacion}
+        GROUP BY sucursal
+      `
+    ])
 
     const totalVotos = resultados.reduce((sum, r) => sum + Number(r.total_votos), 0)
 
@@ -32,7 +40,11 @@ export default async function handler(req, res) {
         : '0.0'
     }))
 
-    return res.status(200).json({ resultados: data, totalVotos })
+    const porSucursal = Object.fromEntries(
+      conteoSucursal.map(r => [r.sucursal, Number(r.total)])
+    )
+
+    return res.status(200).json({ resultados: data, totalVotos, porSucursal })
   } catch (error) {
     console.error('Error obteniendo resultados:', error)
     return res.status(500).json({ error: 'Error interno del servidor' })

@@ -50,6 +50,17 @@
   gap: var(--spacing-lg);
 }
 
+.results-sucursal-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.stat-card--sucursal {
+  border-top: 3px solid var(--primary-color);
+}
+
 .stat-card {
   display: flex;
   align-items: center;
@@ -65,7 +76,11 @@
 }
 
 .stat-icon {
-  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  opacity: 0.8;
 }
 
 .stat-content {
@@ -108,10 +123,18 @@
 }
 
 .no-votes-icon {
-  font-size: 64px;
   display: block;
-  margin-bottom: var(--spacing-lg);
-  opacity: 0.5;
+  margin: 0 auto var(--spacing-lg);
+  opacity: 0.4;
+  color: var(--gray-500);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-icon {
+  animation: spin 1.2s linear infinite;
 }
 
 .no-votes-content h3 {
@@ -296,7 +319,7 @@
 
   /* Título del PDF */
   .results-container::before {
-    content: 'S&P Colombia — Elecciones SST 2026';
+    content: 'S&P Colombia — Elecciones Comites 2026';
     display: block;
     font-size: 20px;
     font-weight: 800;
